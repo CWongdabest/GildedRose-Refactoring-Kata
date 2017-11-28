@@ -36,23 +36,66 @@ describe GildedRose do
       end
     end
 
-     context "Aged Brie" do
-          it "should not increase item quality to more than 50" do
-            items = [Item.new("Aged Brie", 10, 50)]
-            gildedrose = GildedRose.new(items)
-            gildedrose.update_quality
-            expect(items[0].quality).to eq (50)
-          end
-        end
-
+    context "Aged Brie" do
+      it "should increase item quality when sell in date decreases" do
+        items = [Item.new("Aged Brie", 10, 10)]
+        gildedrose = GildedRose.new(items)
+        gildedrose.update_quality
+        expect(items[0].quality).to eq (11)
       end
 
-  describe "#aged_brie?" do
-    it "decides if an item in an Aged Brie" do
-      items = [Item.new("Aged Brie", 0, 0)]
-      gildedrose = GildedRose.new(items)
-      expect(gildedrose.aged_brie?(items[0])).to eq true
+      it "should increase item quality twice when sell in date is passed" do
+        items = [Item.new("Aged Brie", 0, 10)]
+        gildedrose = GildedRose.new(items)
+        gildedrose.update_quality
+        expect(items[0].quality).to eq (12)
+      end
+
+      it "should not increase item quality to more than 50" do
+        items = [Item.new("Aged Brie", 10, 50)]
+        gildedrose = GildedRose.new(items)
+        gildedrose.update_quality
+        expect(items[0].quality).to eq (50)
+      end
     end
+
+      context "Backstage passes" do
+        it "should increase item quality when sell in date decreases" do
+          items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 12, 10)]
+          gildedrose = GildedRose.new(items)
+          gildedrose.update_quality
+          expect(items[0].quality).to eq (11)
+        end
+
+        it "should increase item quality by twice when sell_by date is less than 10" do
+          items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 10)]
+          gildedrose = GildedRose.new(items)
+          gildedrose.update_quality
+          expect(items[0].quality).to eq (12)
+        end
+
+        it "should increase item quality by three times when sell_by date is less than 5" do
+          items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 10)]
+          gildedrose = GildedRose.new(items)
+          gildedrose.update_quality
+          expect(items[0].quality).to eq (13)
+        end
+
+        it "should not increase item quality to more than 50" do
+          items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 50)]
+          gildedrose = GildedRose.new(items)
+          gildedrose.update_quality
+          expect(items[0].quality).to eq (50)
+        end
+
+        it "item quality should be zero after sell_in date" do
+          items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 0, 50)]
+          gildedrose = GildedRose.new(items)
+          gildedrose.update_quality
+          expect(items[0].quality).to eq (0)
+        end
+    end
+
   end
 
 
