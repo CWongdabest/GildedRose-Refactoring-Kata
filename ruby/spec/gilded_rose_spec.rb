@@ -36,7 +36,16 @@ describe GildedRose do
       end
     end
 
-  end
+     context "Aged Brie" do
+          it "should not increase item quality to more than 50" do
+            items = [Item.new("Aged Brie", 10, 50)]
+            gildedrose = GildedRose.new(items)
+            gildedrose.update_quality
+            expect(items[0].quality).to eq (50)
+          end
+        end
+
+      end
 
   describe "#aged_brie?" do
     it "decides if an item in an Aged Brie" do
