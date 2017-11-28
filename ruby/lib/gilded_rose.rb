@@ -51,6 +51,10 @@ class GildedRose
       end
     end
   end
+
+  def aged_brie?(item)
+    item.name == "Aged Brie"
+  end
 end
 
 class Item

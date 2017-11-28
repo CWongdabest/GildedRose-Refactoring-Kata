@@ -10,4 +10,12 @@ describe GildedRose do
     end
   end
 
+  describe "#aged_brie?" do
+    it "decides if an item in an Aged Brie" do
+      items = [Item.new("Aged Brie", 0, 0)]
+      gildedrose = GildedRose.new(items)
+      expect(gildedrose.aged_brie?(items[0])).to eq true
+    end
+  end
+
 end
