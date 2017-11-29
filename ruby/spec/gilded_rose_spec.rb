@@ -2,24 +2,21 @@ require 'gilded_rose'
 
 describe GildedRose do
 
+  class FakeItem
+      attr_accessor :name, :sell_in, :quality
+
+      def initialize(name, sell_in, quality)
+        @name = name
+        @sell_in = sell_in
+        @quality = quality
+      end
+
+  end
+
 
 
   describe "#update_quality" do
-
-
     context "normal items" do
-
-
-        class FakeItem
-            attr_accessor :name, :sell_in, :quality
-
-            def initialize(name, sell_in, quality)
-              @name = name
-              @sell_in = sell_in
-              @quality = quality
-            end
-
-        end
 
       before(:each) do
         @items = [FakeItem.new("foo", 1, 10)]
@@ -134,6 +131,41 @@ describe GildedRose do
           expect(items[0].quality).to eq (0)
         end
     end
+
+    context "conjured items" do
+
+      before(:each) do
+        @items = [FakeItem.new("Conjured", 1, 10)]
+        @gildedrose = GildedRose.new(@items)
+        @gildedrose.update_quality
+      end
+
+
+
+      it "decreases item quality by two for every update unless it's Aged Brie, Backstaged passes, or conjure items" do
+        expect(@items[0].quality).to eq (8)
+      end
+
+      it "decreases item sell_in date by one for every update unless it's Aged Brie, Backstaged passes, or conjure items" do
+        expect(@items[0].sell_in).to eq (0)
+      end
+
+      it "decreases item quality date by four for every update after sell_in date unless it's Aged Brie, Backstaged passes, or conjure items" do
+        @gildedrose.update_quality
+        expect(@items[0].quality).to eq (4)
+      end
+    end
+
+    context "conjured items- edge cases" do
+      it "should not decrease item quality to less than zero" do
+        items = [FakeItem.new("Conjured", 10, 0)]
+        gildedrose = GildedRose.new(items)
+        gildedrose.update_quality
+        expect(items[0].quality).to eq (0)
+      end
+    end
+
+
 
   end
 

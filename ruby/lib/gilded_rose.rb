@@ -2,6 +2,8 @@ require 'aged_brie'
 require 'sulfuras'
 require 'normal_item'
 require 'backstage_passes'
+require 'conjured'
+require 'item'
 
 class GildedRose
 
@@ -18,7 +20,7 @@ class GildedRose
 private
 
   def normal_item?(item)
-    item.name != "Aged Brie" && item.name != "Backstage passes to a TAFKAL80ETC concert" && item.name != "Sulfuras, Hand of Ragnaros"
+    item.name != "Aged Brie" && item.name != "Backstage passes to a TAFKAL80ETC concert" && item.name != "Conjured" && item.name != "Sulfuras, Hand of Ragnaros"
   end
 
   def update_aged_brie(item)
@@ -36,6 +38,11 @@ private
     sulfuras.update_quality
   end
 
+  def update_conjured(item)
+    conjured = Conjured.new(item)
+    conjured.update_quality
+  end
+
   def update_normal_item(item)
     normal_item = Normal_item.new(item)
     normal_item.update_quality
@@ -47,24 +54,11 @@ private
           update_aged_brie(item)
         when "Backstage passes to a TAFKAL80ETC concert"
           update_backstage_passes(item)
-        else "Sulfuras, Hand of Ragnaros"
+        when "Conjured"
+          update_conjured(item)
+        else
           update_sulfuras(item)
       end
-  end
-
-end
-
-class Item
-  attr_accessor :name, :sell_in, :quality
-
-  def initialize(name, sell_in, quality)
-    @name = name
-    @sell_in = sell_in
-    @quality = quality
-  end
-
-  def to_s()
-    "#{@name}, #{@sell_in}, #{@quality}"
   end
 
 end
