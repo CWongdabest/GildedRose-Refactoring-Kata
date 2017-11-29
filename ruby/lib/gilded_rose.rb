@@ -2,6 +2,7 @@ require 'aged_brie'
 require 'sulfuras'
 require 'normal_item'
 require 'backstage_passes'
+
 class GildedRose
 
   def initialize(items)
@@ -16,17 +17,13 @@ class GildedRose
 
   def update_item_quality(item)
     if aged_brie?(item)
-      aged_brie = Aged_brie.new(item)
-      aged_brie.update_quality
+      update_aged_brie(item)
     elsif backstage_passes?(item)
-      backstage_passes = Backstage_passes.new(item)
-      backstage_passes.update_quality
+      update_backstage_passes(item)
     elsif sulfuras?(item)
-      sulfuras = Sulfuras.new(item)
-      sulfuras.update_quality
+      update_sulfuras(item)
     else
-      normal_item = Normal_item.new(item)
-      normal_item.update_quality
+      update_normal_item(item)
     end
   end
 
@@ -42,6 +39,26 @@ private
 
   def sulfuras?(item)
     item.name == "Sulfuras, Hand of Ragnaros"
+  end
+
+  def update_aged_brie(item)
+    aged_brie = Aged_brie.new(item)
+    aged_brie.update_quality
+  end
+
+  def update_backstage_passes(item)
+    backstage_passes = Backstage_passes.new(item)
+    backstage_passes.update_quality
+  end
+
+  def update_sulfuras(item)
+    sulfuras = Sulfuras.new(item)
+    sulfuras.update_quality
+  end
+
+  def update_normal_item(item)
+    normal_item = Normal_item.new(item)
+    normal_item.update_quality
   end
 
 
