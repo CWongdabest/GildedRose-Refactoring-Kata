@@ -2,9 +2,11 @@ require 'gilded_rose'
 
 describe GildedRose do
 
-
   describe "#update_quality" do
+
+
     context "normal items" do
+
       before(:each) do
         @items = [Item.new("foo", 10, 10)]
         gildedrose = GildedRose.new(@items)

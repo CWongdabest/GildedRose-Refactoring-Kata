@@ -1,5 +1,6 @@
 require 'aged_brie'
 
+
 describe Aged_brie do
 
   class FakeItem
@@ -10,6 +11,7 @@ describe Aged_brie do
         @quality = quality
       end
   end
+
 
   it "should increase item quality when sell in date decreases" do
     item = FakeItem.new("Aged Brie", 10, 10)

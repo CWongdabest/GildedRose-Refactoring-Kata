@@ -1,3 +1,7 @@
+require 'aged_brie'
+require 'sulfuras'
+require 'normal_item'
+require 'backstage_passes'
 class GildedRose
 
   def initialize(items)
@@ -6,52 +10,23 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
-      sulfuras?(item) ? item.sell_in -= 0 : item.sell_in -= 1
       update_item_quality(item)
     end
   end
 
   def update_item_quality(item)
-    if !aged_brie?(item) and !backstage_passes?(item)
-      if item.quality > 0
-        if !sulfuras?(item)
-          item.quality = item.quality - 1
-        end
-      end
+    if aged_brie?(item)
+      aged_brie = Aged_brie.new(item)
+      aged_brie.update_quality
+    elsif backstage_passes?(item)
+      backstage_passes = Backstage_passes.new(item)
+      backstage_passes.update_quality
+    elsif sulfuras?(item)
+      sulfuras = Sulfuras.new(item)
+      sulfuras.update_quality
     else
-      if item.quality < 50
-        item.quality = item.quality + 1
-        if backstage_passes?(item)
-          if item.sell_in < 11
-            if item.quality < 50
-              item.quality = item.quality + 1
-            end
-          end
-          if item.sell_in < 6
-            if item.quality < 50
-              item.quality = item.quality + 1
-            end
-          end
-        end
-      end
-    end
-
-    if item.sell_in < 0
-      if !aged_brie?(item)
-        if !backstage_passes?(item)
-          if item.quality > 0
-            if item.name != "Sulfuras, Hand of Ragnaros"
-              item.quality = item.quality - 1
-            end
-          end
-        else
-          item.quality = item.quality - item.quality
-        end
-      else
-        if item.quality < 50
-          item.quality = item.quality + 1
-        end
-      end
+      normal_item = Normal_item.new(item)
+      normal_item.update_quality
     end
   end
 
