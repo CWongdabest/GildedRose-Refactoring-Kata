@@ -19,29 +19,23 @@ class GildedRose
 private
 
   def normal_item?(item)
-    !aged_brie?(item) && !backstage_passes?(item) && !sulfuras?(item)
+    item.name != "Aged Brie" && item.name != "Backstage passes to a TAFKAL80ETC concert" && item.name != "Sulfuras, Hand of Ragnaros"
   end
 
-  def aged_brie?(item)
-    item.name == "Aged Brie"
-  end
-
-  def backstage_passes?(item)
-    item.name == "Backstage passes to a TAFKAL80ETC concert"
-  end
-
-  def sulfuras?(item)
-    item.name == "Sulfuras, Hand of Ragnaros"
+  def update_normal_item(item)
+    normal_item = Normal_item.new(item)
+    normal_item.update_quality
   end
 
   def update_special_item(item)
-    if aged_brie?(item)
-      update_aged_brie(item)
-    elsif backstage_passes?(item)
-      update_backstage_passes(item)
-    else
-      update_sulfuras(item)
-    end
+    case item.name
+      when "Aged Brie"
+        update_aged_brie(item)
+      when "Backstage passes to a TAFKAL80ETC concert"
+        update_backstage_passes(item)
+      else "Sulfuras, Hand of Ragnaros"
+        update_sulfuras(item)
+      end
   end
 
   def update_aged_brie(item)
@@ -59,10 +53,7 @@ private
     sulfuras.update_quality
   end
 
-  def update_normal_item(item)
-    normal_item = Normal_item.new(item)
-    normal_item.update_quality
-  end
+
 
 
 end
