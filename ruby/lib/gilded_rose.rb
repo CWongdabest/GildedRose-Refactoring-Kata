@@ -18,6 +18,10 @@ class GildedRose
 
 private
 
+  def normal_item?(item)
+    !aged_brie?(item) && !backstage_passes?(item) && !sulfuras?(item)
+  end
+
   def aged_brie?(item)
     item.name == "Aged Brie"
   end
@@ -28,10 +32,6 @@ private
 
   def sulfuras?(item)
     item.name == "Sulfuras, Hand of Ragnaros"
-  end
-
-  def normal_item?(item)
-    !aged_brie?(item) && !backstage_passes?(item) && !sulfuras?(item)
   end
 
   def update_special_item(item)
@@ -75,8 +75,9 @@ class Item
     @sell_in = sell_in
     @quality = quality
   end
-  #
-  # def to_s()
-  #   "#{@name}, #{@sell_in}, #{@quality}"
-  # end
+
+  def to_s()
+    "#{@name}, #{@sell_in}, #{@quality}"
+  end
+
 end
