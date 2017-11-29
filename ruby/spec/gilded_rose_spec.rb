@@ -8,9 +8,9 @@ describe GildedRose do
     context "normal items" do
 
       before(:each) do
-        @items = [Item.new("foo", 10, 10)]
-        gildedrose = GildedRose.new(@items)
-        gildedrose.update_quality
+        @items = [Item.new("foo", 1, 10)]
+        @gildedrose = GildedRose.new(@items)
+        @gildedrose.update_quality
       end
 
       it "does not change the name" do
@@ -22,7 +22,12 @@ describe GildedRose do
       end
 
       it "decreases item sell_in date by one for every update unless it's Aged Brie, Backstaged passes, or conjure items" do
-        expect(@items[0].sell_in).to eq (9)
+        expect(@items[0].sell_in).to eq (0)
+      end
+
+      it "decreases item quality date by two for every update after sell_in date unless it's Aged Brie, Backstaged passes, or conjure items" do
+        @gildedrose.update_quality
+        expect(@items[0].quality).to eq (7)
       end
     end
 

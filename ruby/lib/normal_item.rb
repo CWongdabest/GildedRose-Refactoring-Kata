@@ -6,7 +6,7 @@ class Normal_item
 
   def update_quality
     @item.sell_in -= 1
-    normal_update
+    (@item.sell_in >= 0) ? normal_update : pass_sell_in_date_update
   end
 
 private
@@ -15,6 +15,8 @@ private
     (@item.quality <= 0) ? @item.quality = 0 : @item.quality -= 1
   end
 
-
+  def pass_sell_in_date_update
+    (@item.quality <= 0) ? @item.quality = 0 : @item.quality -= 2
+  end
 
 end
