@@ -9,12 +9,12 @@ describe Backstage_passes do
     expect(item.quality).to eq (11)
   end
 
-  # it "should increase item quality by twice when sell_by date is less than 10" do
-  #   items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 10)]
-  #   gildedrose = GildedRose.new(items)
-  #   gildedrose.update_quality
-  #   expect(items[0].quality).to eq (12)
-  # end
+  it "should increase item quality by twice when sell_by date is less than 10" do
+    item = Item.new("Backstage passes to a TAFKAL80ETC concert", 10, 10)
+    backstage_passes = Backstage_passes.new(item)
+    backstage_passes.update_quality
+    expect(item.quality).to eq (12)
+  end
   #
   # it "should increase item quality by three times when sell_by date is less than 5" do
   #   items = [Item.new("Backstage passes to a TAFKAL80ETC concert", 5, 10)]
