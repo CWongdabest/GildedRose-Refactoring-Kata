@@ -11,21 +11,10 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
-      update_item_quality(item)
+      normal_item?(item) ? update_normal_item(item) : update_special_item(item)
     end
   end
 
-  def update_item_quality(item)
-    if aged_brie?(item)
-      update_aged_brie(item)
-    elsif backstage_passes?(item)
-      update_backstage_passes(item)
-    elsif sulfuras?(item)
-      update_sulfuras(item)
-    else
-      update_normal_item(item)
-    end
-  end
 
 private
 
@@ -39,6 +28,20 @@ private
 
   def sulfuras?(item)
     item.name == "Sulfuras, Hand of Ragnaros"
+  end
+
+  def normal_item?(item)
+    !aged_brie?(item) && !backstage_passes?(item) && !sulfuras?(item)
+  end
+
+  def update_special_item(item)
+    if aged_brie?(item)
+      update_aged_brie(item)
+    elsif backstage_passes?(item)
+      update_backstage_passes(item)
+    else
+      update_sulfuras(item)
+    end
   end
 
   def update_aged_brie(item)
