@@ -2,18 +2,33 @@ require 'gilded_rose'
 
 describe GildedRose do
 
+
+
   describe "#update_quality" do
 
 
     context "normal items" do
 
+
+        class FakeItem
+            attr_accessor :name, :sell_in, :quality
+
+            def initialize(name, sell_in, quality)
+              @name = name
+              @sell_in = sell_in
+              @quality = quality
+            end
+
+        end
+
       before(:each) do
-        @items = [Item.new("foo", 1, 10)]
+        @items = [FakeItem.new("foo", 1, 10)]
         @gildedrose = GildedRose.new(@items)
         @gildedrose.update_quality
       end
 
       it "does not change the name" do
+        p @items
         expect(@items[0].name).to eq "foo"
       end
 
@@ -33,7 +48,7 @@ describe GildedRose do
 
     context "normal items- edge cases" do
       it "should not decrease item quality to less than zero" do
-        items = [Item.new("foo", 10, 10)]
+        items = [FakeItem.new("foo", 10, 10)]
         gildedrose = GildedRose.new(items)
 
         11.times do |n|
@@ -45,14 +60,14 @@ describe GildedRose do
 
     context "Sulfuras" do
       it "should not increase item quality and sell in date of Sulfuras" do
-        items = [Item.new("Sulfuras, Hand of Ragnaros", 10, 10)]
+        items = [FakeItem.new("Sulfuras, Hand of Ragnaros", 10, 10)]
         gildedrose = GildedRose.new(items)
         gildedrose.update_quality
         expect(items[0].quality).to eq (10)
       end
 
       it "should not increase item quality and sell in date of Sulfuras" do
-        items = [Item.new("Sulfuras, Hand of Ragnaros", 10, 10)]
+        items = [FakeItem.new("Sulfuras, Hand of Ragnaros", 10, 10)]
         gildedrose = GildedRose.new(items)
         gildedrose.update_quality
         expect(items[0].sell_in).to eq (10)
@@ -62,21 +77,21 @@ describe GildedRose do
 
     context "Aged Brie" do
       it "should increase item quality when sell in date decreases" do
-        items = [Item.new("Aged Brie", 10, 10)]
+        items = [FakeItem.new("Aged Brie", 10, 10)]
         gildedrose = GildedRose.new(items)
         gildedrose.update_quality
         expect(items[0].quality).to eq (11)
       end
 
       it "should increase item quality twice when sell in date is passed" do
-        items = [Item.new("Aged Brie", 0, 10)]
+        items = [FakeItem.new("Aged Brie", 0, 10)]
         gildedrose = GildedRose.new(items)
         gildedrose.update_quality
         expect(items[0].quality).to eq (12)
       end
 
       it "should not increase item quality to more than 50" do
-        items = [Item.new("Aged Brie", 10, 50)]
+        items = [FakeItem.new("Aged Brie", 10, 50)]
         gildedrose = GildedRose.new(items)
         gildedrose.update_quality
         expect(items[0].quality).to eq (50)
