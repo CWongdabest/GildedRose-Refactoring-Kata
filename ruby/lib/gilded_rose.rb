@@ -55,11 +55,7 @@ class GildedRose
     end
   end
 
-  def normal_item(item)
-    item.sell_in -= 1
-    item.quality -= 1
-  end
-
+private
 
   def aged_brie?(item)
     item.name == "Aged Brie"
@@ -84,8 +80,8 @@ class Item
     @sell_in = sell_in
     @quality = quality
   end
-
-  def to_s()
-    "#{@name}, #{@sell_in}, #{@quality}"
-  end
+  #
+  # def to_s()
+  #   "#{@name}, #{@sell_in}, #{@quality}"
+  # end
 end

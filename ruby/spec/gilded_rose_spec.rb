@@ -36,6 +36,23 @@ describe GildedRose do
       end
     end
 
+    context "Sulfuras" do
+      it "should not increase item quality and sell in date of Sulfuras" do
+        items = [Item.new("Sulfuras, Hand of Ragnaros", 10, 10)]
+        gildedrose = GildedRose.new(items)
+        gildedrose.update_quality
+        expect(items[0].quality).to eq (10)
+      end
+
+      it "should not increase item quality and sell in date of Sulfuras" do
+        items = [Item.new("Sulfuras, Hand of Ragnaros", 10, 10)]
+        gildedrose = GildedRose.new(items)
+        gildedrose.update_quality
+        expect(items[0].sell_in).to eq (10)
+      end
+    end
+
+
     context "Aged Brie" do
       it "should increase item quality when sell in date decreases" do
         items = [Item.new("Aged Brie", 10, 10)]
