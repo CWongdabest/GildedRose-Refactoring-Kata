@@ -27,6 +27,7 @@
         1,
         null,
         null,
+        null,
         null
       ],
       "/Users/cwong/Documents/Gilded_Rose/GildedRose-Refactoring-Kata/ruby/lib/aged_brie.rb": [
@@ -344,9 +345,48 @@
         1,
         null,
         1,
-        22,
-        22,
-        22,
+        24,
+        24,
+        24,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/cwong/Documents/Gilded_Rose/GildedRose-Refactoring-Kata/ruby/spec/sulfuras_spec.rb": [
+        1,
+        null,
+        1,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        1,
+        1,
+        1,
+        1,
+        1,
+        null,
+        null,
+        null
+      ],
+      "/Users/cwong/Documents/Gilded_Rose/GildedRose-Refactoring-Kata/ruby/lib/sulfuras.rb": [
+        1,
+        null,
+        1,
+        2,
+        null,
+        null,
+        1,
+        2,
+        2,
+        null,
         null,
         null,
         null,
@@ -355,6 +395,6 @@
         null
       ]
     },
-    "timestamp": 1511959423
+    "timestamp": 1511960001
   }
 }
